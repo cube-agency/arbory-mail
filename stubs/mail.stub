@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use CubeAgency\ArboryMail\Notifications\TranslatableNotification;
+
+class DummyClass extends TranslatableNotification
+{
+    /**
+     * @var array
+     */
+    protected static $placeholders = [
+        'key',
+    ];
+
+    /**
+     * DummyClass constructor
+     */
+    public function __construct()
+    {
+        $this->setValue('key', 'value');
+    }
+}

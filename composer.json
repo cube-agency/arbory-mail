@@ -1,0 +1,26 @@
+{
+    "name": "cube-agency/arbory-mail",
+    "description": "Mail module for Arbory CMS",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Uldis Brize",
+            "email": "uldis@cube.lv"
+        }
+    ],
+    "require": {
+        "arbory/arbory": "^0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "CubeAgency\\ArboryMail\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CubeAgency\\ArboryMail\\Providers\\MailServiceProvider"
+            ]
+        }
+    }
+}
