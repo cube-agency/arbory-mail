@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\CubeAgency\ArboryMail\Mail\MailTranslation whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\CubeAgency\ArboryMail\Mail\MailTranslation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $html
+ * @property string|null $plain
+ * @method static \Illuminate\Database\Eloquent\Builder|\CubeAgency\ArboryMail\Mail\MailTranslation whereHtml($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\CubeAgency\ArboryMail\Mail\MailTranslation wherePlain($value)
  */
 class MailTranslation extends Model
 {
@@ -35,7 +39,8 @@ class MailTranslation extends Model
      */
     protected $fillable = [
         'subject',
-        'text',
+        'html',
+        'plain',
         'locale',
         'mail_id'
     ];

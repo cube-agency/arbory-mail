@@ -29,7 +29,12 @@ abstract class TranslatableNotification extends Mailable
     /**
      * @var string
      */
-    public $view = 'arbory-mail::plain';
+    public $htmlView = 'arbory-mail::html';
+
+    /**
+     * @var string
+     */
+    public $plainView = 'arbory-mail::plain';
 
     /**
      * @return Mail|\Illuminate\Database\Eloquent\Model|null|object|static
@@ -71,9 +76,18 @@ abstract class TranslatableNotification extends Mailable
      * @return string
      * @throws \Exception
      */
-    protected function getTranslatedText()
+    protected function getTranslatedHtml()
     {
-        return $this->replacePlaceholders($this->getTranslationResource()->text);
+        return $this->replacePlaceholders($this->getTranslationResource()->html);
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    protected function getTranslatedPlain()
+    {
+        return $this->replacePlaceholders($this->getTranslationResource()->plain);
     }
 
     /**
@@ -83,7 +97,7 @@ abstract class TranslatableNotification extends Mailable
      * @param string $data
      * @return string
      */
-    protected function replacePlaceholders(string $data)
+    protected function replacePlaceholders(?string $data)
     {
         foreach ($this->values as $placeholder => $value) {
             $data = str_replace(':' . $placeholder, $value, $data);
@@ -115,8 +129,13 @@ abstract class TranslatableNotification extends Mailable
      */
     public function build()
     {
-        return $this->view($this->view, [
-                'html' => $this->getTranslatedText()
-            ])->subject($this->getTranslatedSubject());
+        return $this
+            ->view($this->htmlView, [
+                'html' => $this->getTranslatedHtml()
+            ])
+            ->text($this->plainView, [
+                'text' => $this->getTranslatedPlain()
+            ])
+            ->subject($this->getTranslatedSubject());
     }
 }

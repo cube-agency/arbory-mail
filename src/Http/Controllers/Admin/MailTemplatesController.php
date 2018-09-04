@@ -5,6 +5,7 @@ namespace CubeAgency\ArboryMail\Http\Controllers\Admin;
 use Arbory\Base\Admin\Form;
 use Arbory\Base\Admin\Form\Fields\Richtext;
 use Arbory\Base\Admin\Form\Fields\Text;
+use Arbory\Base\Admin\Form\Fields\Textarea;
 use Arbory\Base\Admin\Form\Fields\Translatable;
 use Arbory\Base\Admin\Grid;
 use Arbory\Base\Admin\Tools\ToolboxMenu;
@@ -58,7 +59,8 @@ class MailTemplatesController extends Controller
             }
 
             $form->addField(new Translatable(new Text('subject')))->setLabel(trans('arbory-mail::mail.subject'));
-            $form->addField(new Translatable(new Richtext('text')))->setLabel(trans('arbory-mail::mail.text'));
+            $form->addField(new Translatable(new Richtext('html')))->setLabel(trans('arbory-mail::mail.html'));
+            $form->addField(new Translatable(new Textarea('plain')))->setLabel(trans('arbory-mail::mail.plain'));
         });
 
         return $form;

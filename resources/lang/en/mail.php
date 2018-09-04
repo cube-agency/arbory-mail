@@ -2,7 +2,8 @@
 
 return [
     'subject' => 'Subject',
-    'text' => 'Text',
+    'html' => 'Html',
+    'plain' => 'Plain',
     'type' => 'Type',
     'placeholders' => 'Placeholders',
 ];

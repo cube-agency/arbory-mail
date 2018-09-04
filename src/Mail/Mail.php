@@ -47,7 +47,8 @@ class Mail extends Model
      */
     protected $translatedAttributes = [
         'subject',
-        'text'
+        'html',
+        'plain'
     ];
 
     /**
