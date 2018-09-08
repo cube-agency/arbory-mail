@@ -2,6 +2,7 @@
 
 namespace CubeAgency\ArboryMail\Console;
 
+use CubeAgency\ArboryMail\Repositories\MailRepository;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 
@@ -33,6 +34,9 @@ class ArboryMailGenerateCommand extends Command
         foreach ($templates as $template) {
             $this->makeArboryMail($template);
         }
+
+        // Insert missing templates in database
+        resolve(MailRepository::class);
 
         $this->info('Mail templates generated successfully!');
     }

@@ -4,6 +4,8 @@ namespace CubeAgency\ArboryMail\Repositories;
 
 use CubeAgency\ArboryMail\Mail\Mail;
 use Illuminate\Support\Collection;
+use Intervention\Image\Exception\NotFoundException;
+use Symfony\Component\Debug\Exception\ClassNotFoundException;
 
 class MailRepository
 {
@@ -34,5 +36,20 @@ class MailRepository
                 $this->templates->push($mail);
             }
         }
+    }
+
+    /**
+     * @param string $templateName
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getTemplate(string $templateName)
+    {
+        $template = $this->templates->where('type', $templateName)->first();
+        if (empty($template)) {
+            throw new \Exception('Could not load translatable mail for ' . static::class );
+        }
+
+        return $template;
     }
 }

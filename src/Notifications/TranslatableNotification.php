@@ -3,6 +3,7 @@
 namespace CubeAgency\ArboryMail\Notifications;
 
 use CubeAgency\ArboryMail\Mail\Mail;
+use CubeAgency\ArboryMail\Repositories\MailRepository;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Bus\Queueable;
@@ -38,6 +39,7 @@ abstract class TranslatableNotification extends Mailable
 
     /**
      * @return Mail|\Illuminate\Database\Eloquent\Model|null|object|static
+     * @throws \Exception
      */
     protected function getTranslationResource()
     {
@@ -45,6 +47,11 @@ abstract class TranslatableNotification extends Mailable
             $this->mail = Mail::query()
                 ->where('type', static::class)
                 ->first();
+
+            if (empty($this->mail)) {
+                $this->mail = resolve(MailRepository::class)
+                    ->getTemplate(static::class);
+            }
 
             $this->mail->setDefaultLocale($this->getLocale());
         }
