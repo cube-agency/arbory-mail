@@ -3,10 +3,7 @@
 namespace CubeAgency\ArboryMail\Http\Controllers\Admin;
 
 use Arbory\Base\Admin\Form;
-use Arbory\Base\Admin\Form\Fields\Richtext;
-use Arbory\Base\Admin\Form\Fields\Text;
-use Arbory\Base\Admin\Form\Fields\Textarea;
-use Arbory\Base\Admin\Form\Fields\Translatable;
+use Arbory\Base\Admin\Form\FieldSet;
 use Arbory\Base\Admin\Grid;
 use Arbory\Base\Admin\Tools\ToolboxMenu;
 use Arbory\Base\Admin\Traits\Crudify;
@@ -41,13 +38,13 @@ class MailTemplatesController extends Controller
     }
 
     /**
-     * @param Mail $mail
+     * @param Form $form
      * @return Form
      */
-    protected function form(Mail $mail)
+    protected function form(Form $form)
     {
-        $form = $this->module()->form($mail, function (Form $form) use ($mail) {
-
+        $form->setFields(function (FieldSet $fields) use ($form) {
+            $mail = $form->getModel();
             if ($mail->exists && $mail->type && is_subclass_of($mail->type, TranslatableNotification::class)) {
                 /** @var TranslatableNotification $notificationClass */
                 $notificationClass = $mail->type;
@@ -55,23 +52,26 @@ class MailTemplatesController extends Controller
             }
 
             if (!empty($placeholders)) {
-                $form->addField((new Placeholders('placeholders'))->setPlaceholders($placeholders));
+                $fields->add((new Placeholders('placeholders'))->setPlaceholders($placeholders))
+                    ->setLabel(trans('arbory-mail::mail.placeholders'));
             }
 
-            $form->addField(new Translatable(new Text('subject')))->setLabel(trans('arbory-mail::mail.subject'));
-            $form->addField(new Translatable(new Richtext('html')))->setLabel(trans('arbory-mail::mail.html'));
-            $form->addField(new Translatable(new Textarea('plain')))->setLabel(trans('arbory-mail::mail.plain'));
+            $fields->text('subject')->setLabel(trans('arbory-mail::mail.subject'))->translatable();
+            $fields->richtext('html')->setLabel(trans('arbory-mail::mail.html'))->translatable();
+            $fields->textarea('plain')->setLabel(trans('arbory-mail::mail.plain'))->translatable();
+
         });
 
         return $form;
     }
 
     /**
+     * @param Grid $grid
      * @return Grid
      */
-    public function grid()
+    public function grid(Grid $grid)
     {
-        $grid = $this->module()->grid($this->resource(), function (Grid $grid){
+        $grid->setColumns(function (Grid $grid) {
             $grid->column('subject', trans('arbory-mail::mail.subject'));
             $grid->column('type', trans('arbory-mail::mail.type'));
         });
