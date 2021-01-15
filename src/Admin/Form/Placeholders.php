@@ -27,10 +27,9 @@ class Placeholders extends AbstractField
                 ]);
         }
 
-        return Html::header([
-            Html::h2(trans('arbory-mail::mail.placeholders') . ': '),
+        return Html::div([
             Html::ul($list)->addAttributes(['style' => 'margin: 0; display: flex; padding: 0;list-style-type: none;']),
-        ])->addAttributes(['style' => 'clear:both; padding: 12px 24px; width:100%;']);
+        ])->addAttributes(['style' => 'clear:both; padding: 12px 0; width:100%;']);
     }
 
     /**
