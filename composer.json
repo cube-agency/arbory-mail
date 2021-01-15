@@ -8,9 +8,6 @@
             "email": "uldis@cube.lv"
         }
     ],
-    "require": {
-        "arbory/arbory": "^0.2"
-    },
     "autoload": {
         "psr-4": {
             "CubeAgency\\ArboryMail\\": "src/"
