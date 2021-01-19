@@ -1,6 +1,6 @@
 <?php
 
-namespace CubeAgency\ArboryMail\Console;
+namespace CubeAgency\ArboryMail\Console\Commands;
 
 use CubeAgency\ArboryMail\Repositories\MailRepository;
 use Illuminate\Support\Str;

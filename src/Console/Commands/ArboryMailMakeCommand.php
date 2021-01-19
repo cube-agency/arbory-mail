@@ -1,6 +1,6 @@
 <?php
 
-namespace CubeAgency\ArboryMail\Console;
+namespace CubeAgency\ArboryMail\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;

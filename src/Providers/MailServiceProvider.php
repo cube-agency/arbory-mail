@@ -2,8 +2,8 @@
 
 namespace CubeAgency\ArboryMail\Providers;
 
-use CubeAgency\ArboryMail\Console\ArboryMailGenerateCommand;
-use CubeAgency\ArboryMail\Console\ArboryMailMakeCommand;
+use CubeAgency\ArboryMail\Console\Commands\ArboryMailGenerateCommand;
+use CubeAgency\ArboryMail\Console\Commands\ArboryMailMakeCommand;
 use Illuminate\Support\ServiceProvider;
 
 class MailServiceProvider extends ServiceProvider
